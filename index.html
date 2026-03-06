@@ -3,526 +3,1100 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Camou Labs — AI That Actually Works for Small Business</title>
+<title>Jannik AI — Your AI. Your Rules. Your Actions.</title>
+<meta name="description" content="A private AI assistant that doesn't just answer questions — it gets things done. Private, proactive, and customized to you.">
 <style>
-  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;font-size:16px}
-  body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
-  ::selection{background:#58a6ff33;color:#fff}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-  /* ── Layout ── */
-  .container{max-width:960px;margin:0 auto;padding:0 24px}
-  section{padding:80px 0;border-bottom:1px solid #21262d}
-  section:last-of-type{border-bottom:none}
+:root {
+  --bg: #0a0a0f;
+  --bg-light: #111118;
+  --bg-card: #16161f;
+  --bg-card-hover: #1c1c28;
+  --blue: #3b82f6;
+  --blue-dim: rgba(59, 130, 246, 0.15);
+  --blue-glow: rgba(59, 130, 246, 0.3);
+  --green: #10b981;
+  --green-dim: rgba(16, 185, 129, 0.15);
+  --green-glow: rgba(16, 185, 129, 0.3);
+  --text: #e4e4e7;
+  --text-dim: #9ca3af;
+  --text-bright: #f9fafb;
+  --border: rgba(255, 255, 255, 0.06);
+  --border-light: rgba(255, 255, 255, 0.1);
+}
 
-  /* ── Typography ── */
-  h1{font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;color:#fff;line-height:1.15;letter-spacing:-.02em}
-  h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:#fff;margin-bottom:24px;letter-spacing:-.01em}
-  h3{font-size:1.15rem;font-weight:600;color:#58a6ff;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em;font-size:.95rem}
-  p{margin-bottom:16px;color:#8b949e;font-size:1.05rem}
-  strong{color:#c9d1d9}
-  .accent{color:#58a6ff}
-  .white{color:#fff}
+html { scroll-behavior: smooth; }
 
-  /* ── Hero ── */
-  .hero{padding:120px 0 80px;text-align:center;border-bottom:1px solid #21262d;position:relative;overflow:hidden}
-  .hero::before{content:"";position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,#58a6ff10 0%,transparent 70%);pointer-events:none}
-  .hero .subtitle{font-size:clamp(1.1rem,2.5vw,1.35rem);color:#8b949e;max-width:640px;margin:20px auto 0;font-weight:400}
-  .hero .badge{display:inline-block;background:#58a6ff18;color:#58a6ff;font-size:.82rem;font-weight:600;padding:6px 16px;border-radius:20px;margin-bottom:20px;letter-spacing:.03em}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-  /* ── Cards ── */
-  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:32px}
-  .card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:28px;transition:border-color .2s}
-  .card:hover{border-color:#30363d}
-  .card .icon{font-size:1.6rem;margin-bottom:12px;display:block}
-  .card h4{color:#fff;font-size:1.05rem;font-weight:600;margin-bottom:8px}
-  .card p{font-size:.93rem;margin-bottom:0;color:#8b949e}
-  .card ul{list-style:none;padding:0;margin:0}
-  .card ul li{padding:5px 0;font-size:.93rem;color:#8b949e;position:relative;padding-left:20px}
-  .card ul li::before{content:"→";position:absolute;left:0;color:#58a6ff;font-weight:600}
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 2rem;
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+.nav-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav-logo span { color: var(--blue); }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text-bright); }
+.nav-cta {
+  background: var(--blue) !important;
+  color: #fff !important;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600 !important;
+  transition: opacity 0.2s !important;
+}
+.nav-cta:hover { opacity: 0.9; }
+.nav-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
 
-  /* ── Problem pills ── */
-  .problem-list{list-style:none;padding:0;margin:24px 0 0}
-  .problem-list li{background:#161b22;border:1px solid #21262d;border-radius:10px;padding:20px 24px;margin-bottom:12px;font-size:1.05rem;color:#c9d1d9;display:flex;align-items:flex-start;gap:14px}
-  .problem-list li .emoji{font-size:1.3rem;flex-shrink:0;margin-top:2px}
+/* ── SECTIONS ── */
+section { padding: 7rem 2rem; }
+.container { max-width: 1100px; margin: 0 auto; }
 
-  /* ── How it works ── */
-  .steps{counter-reset:step;margin-top:32px}
-  .steps .step{display:flex;gap:20px;align-items:flex-start;margin-bottom:28px}
-  .steps .step-num{flex-shrink:0;width:40px;height:40px;border-radius:50%;background:#58a6ff18;color:#58a6ff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.95rem;border:1px solid #58a6ff33}
-  .steps .step-body h4{color:#fff;font-weight:600;margin-bottom:4px}
-  .steps .step-body p{margin-bottom:0;font-size:.95rem}
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+  margin-bottom: 1rem;
+}
+.section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--text-bright);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+}
+.section-subtitle {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  max-width: 640px;
+  line-height: 1.7;
+}
 
-  /* ── Dialogue ── */
-  .dialogue{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:32px;margin-bottom:24px}
-  .dialogue .label{font-size:.8rem;font-weight:600;color:#58a6ff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
-  .dialogue blockquote{border-left:3px solid #58a6ff;padding-left:16px;margin:0 0 16px;color:#c9d1d9;font-size:1.05rem;font-style:italic}
-  .dialogue blockquote:last-child{margin-bottom:0}
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--blue-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; max-width: 800px; }
+.hero h1 {
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: var(--text-bright);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.5rem;
+}
+.hero h1 .accent { color: var(--green); }
+.hero p {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: var(--text-dim);
+  max-width: 580px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 0 30px var(--blue-glow);
+}
+.btn-primary:hover { box-shadow: 0 0 50px var(--blue-glow); transform: translateY(-1px); }
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border-light);
+}
+.btn-outline:hover { border-color: var(--text-dim); background: var(--bg-card); }
+.hero-proof {
+  margin-top: 4rem;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+.hero-proof span { color: var(--text); font-weight: 500; }
 
-  /* ── Pricing ── */
-  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:32px}
-  .price-card{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:32px;text-align:center;position:relative}
-  .price-card.featured{border-color:#58a6ff44;box-shadow:0 0 40px #58a6ff08}
-  .price-card .tier{font-size:.8rem;font-weight:600;color:#58a6ff;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-  .price-card .price{font-size:2.4rem;font-weight:800;color:#fff;margin-bottom:4px}
-  .price-card .price span{font-size:.9rem;font-weight:400;color:#8b949e}
-  .price-card .desc{font-size:.9rem;color:#8b949e;margin-bottom:20px}
-  .price-card ul{list-style:none;padding:0;text-align:left}
-  .price-card ul li{padding:6px 0;font-size:.9rem;color:#8b949e;padding-left:22px;position:relative}
-  .price-card ul li::before{content:"✓";position:absolute;left:0;color:#58a6ff;font-weight:700}
-  .popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#58a6ff;color:#0d1117;font-size:.75rem;font-weight:700;padding:4px 14px;border-radius:12px;text-transform:uppercase;letter-spacing:.04em}
+/* ── PROBLEM ── */
+.problem { background: var(--bg-light); }
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+.problem-card {
+  padding: 2.5rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+.problem-card.theirs { background: rgba(239, 68, 68, 0.04); border-color: rgba(239, 68, 68, 0.15); }
+.problem-card.ours { background: var(--green-dim); border-color: rgba(16, 185, 129, 0.2); }
+.problem-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+}
+.problem-card .icon { font-size: 2rem; margin-bottom: 1rem; }
+.problem-card ul { list-style: none; }
+.problem-card li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+.problem-card.theirs li::before { content: '✗'; position: absolute; left: 0; color: #ef4444; font-weight: 700; }
+.problem-card.ours li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
 
-  /* ── Math ── */
-  .math-box{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:36px;margin-top:32px}
-  .math-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #21262d;font-size:1.05rem}
-  .math-row:last-child{border-bottom:none;padding-top:16px;margin-top:8px;border-top:2px solid #58a6ff33}
-  .math-row .label{color:#8b949e}
-  .math-row .value{color:#fff;font-weight:700;font-size:1.15rem}
-  .math-row.savings .value{color:#58a6ff;font-size:1.4rem}
+/* ── COMPARISON ── */
+.comparison-table {
+  margin-top: 3rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.comp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.comp-row:last-child { border-bottom: none; }
+.comp-row.header { background: var(--bg-card); }
+.comp-cell {
+  padding: 1.15rem 1.5rem;
+  font-size: 0.925rem;
+}
+.comp-row.header .comp-cell {
+  font-weight: 700;
+  color: var(--text-bright);
+  font-size: 0.95rem;
+}
+.comp-cell:first-child {
+  color: var(--text-dim);
+  font-weight: 500;
+}
+.comp-cell:nth-child(2) { color: var(--text-dim); }
+.comp-cell:nth-child(3) { color: var(--green); font-weight: 500; }
+.comp-cell.green-bg { background: var(--green-dim); }
 
-  /* ── Honesty ── */
-  .honesty-list{list-style:none;padding:0;margin:24px 0 0}
-  .honesty-list li{padding:12px 0;border-bottom:1px solid #21262d;display:flex;gap:12px;align-items:flex-start;font-size:1rem;color:#8b949e}
-  .honesty-list li:last-child{border-bottom:none}
-  .honesty-list li .icon{color:#f85149;flex-shrink:0;font-size:1.1rem}
+/* ── OFFERINGS ── */
+.offerings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.offering-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 3rem;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.offering-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+.offering-card .icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
+.offering-card h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.offering-card .desc {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
 
-  /* ── Differentiators ── */
-  .diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:32px;border:1px solid #21262d;border-radius:12px;overflow:hidden}
-  .diff-col{padding:28px}
-  .diff-col:first-child{background:#161b22;border-right:1px solid #21262d}
-  .diff-col h4{font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px}
-  .diff-col:first-child h4{color:#f85149}
-  .diff-col:last-child h4{color:#58a6ff}
-  .diff-col ul{list-style:none;padding:0}
-  .diff-col ul li{padding:6px 0;font-size:.93rem;color:#8b949e;padding-left:20px;position:relative}
-  .diff-col:first-child ul li::before{content:"✗";position:absolute;left:0;color:#f8514966;font-weight:700}
-  .diff-col:last-child ul li::before{content:"✓";position:absolute;left:0;color:#58a6ff;font-weight:700}
+.example-list { list-style: none; margin-bottom: 2rem; }
+.example-list li {
+  padding: 0.6rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  line-height: 1.5;
+}
+.example-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--green);
+  font-weight: 700;
+}
 
-  /* ── CTA ── */
-  .cta-section{text-align:center;padding:100px 0 80px}
-  .cta-section h2{font-size:clamp(1.6rem,3.5vw,2.4rem);margin-bottom:12px}
-  .cta-section p{font-size:1.1rem;max-width:520px;margin:0 auto 32px}
-  .btn{display:inline-block;background:#58a6ff;color:#0d1117;font-weight:700;font-size:1rem;padding:14px 36px;border-radius:8px;text-decoration:none;transition:all .2s;letter-spacing:.01em}
-  .btn:hover{background:#79c0ff;transform:translateY(-1px);box-shadow:0 4px 20px #58a6ff22}
-  .contact-line{margin-top:20px;font-size:.95rem;color:#8b949e}
+.pricing-block {
+  background: var(--bg-light);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: auto;
+}
+.pricing-block h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 0.75rem;
+}
+.price-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  font-size: 0.925rem;
+}
+.price-line .label { color: var(--text-dim); }
+.price-line .amount { color: var(--text-bright); font-weight: 600; }
 
-  /* ── Stack ── */
-  .stack-pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-  .pill{background:#21262d;color:#8b949e;font-size:.82rem;padding:6px 14px;border-radius:6px;font-weight:500;border:1px solid #30363d}
+/* ── INFRA ── */
+.infra { background: var(--bg-light); }
+.infra-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 3rem; align-items: start; }
+.infra-text .desc { color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; margin-bottom: 2rem; }
+.stack-list { list-style: none; margin-bottom: 2.5rem; }
+.stack-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  font-size: 0.95rem;
+}
+.stack-list .icon { color: var(--blue); flex-shrink: 0; font-size: 1.1rem; margin-top: 0.1rem; }
+.stack-list .text { color: var(--text-dim); }
+.stack-list strong { color: var(--text); }
 
-  /* ── Footer ── */
-  footer{text-align:center;padding:40px 0;border-top:1px solid #21262d;font-size:.85rem;color:#484f58}
-  footer .brand{color:#58a6ff;font-weight:600}
+.infra-stack {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2.5rem;
+}
+.infra-stack h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 1.5rem;
+}
+.stack-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.stack-layer {
+  padding: 0.9rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.stack-layer.l1 { background: var(--blue-dim); color: var(--blue); border-color: rgba(59,130,246,0.2); }
+.stack-layer.l2 { background: var(--green-dim); color: var(--green); border-color: rgba(16,185,129,0.2); }
+.stack-layer.l3 { background: rgba(168, 85, 247, 0.1); color: #a855f7; border-color: rgba(168,85,247,0.2); }
+.stack-layer.l4 { background: rgba(251, 191, 36, 0.1); color: #fbbf24; border-color: rgba(251,191,36,0.2); }
+.stack-layer.l5 { background: rgba(239, 68, 68, 0.08); color: #f87171; border-color: rgba(239,68,68,0.15); }
 
-  /* ── Responsive ── */
-  @media(max-width:640px){
-    section{padding:60px 0}
-    .hero{padding:80px 0 60px}
-    .diff-grid{grid-template-columns:1fr}
-    .diff-col:first-child{border-right:none;border-bottom:1px solid #21262d}
-    .card-grid{grid-template-columns:1fr}
-    .pricing-grid{grid-template-columns:1fr}
+.infra-quote {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--text);
+  border-left: 3px solid var(--blue);
+  padding-left: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+/* ── SECURITY ── */
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.security-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  transition: border-color 0.3s;
+}
+.security-card:hover { border-color: var(--border-light); }
+.security-card .icon { font-size: 1.75rem; margin-bottom: 1rem; }
+.security-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+}
+.security-card p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
+
+/* ── STEPS ── */
+.steps { background: var(--bg-light); }
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.step {
+  text-align: center;
+  padding: 2.5rem 2rem;
+}
+.step-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--blue-dim);
+  color: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+}
+.step h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 0.75rem;
+}
+.step p { font-size: 0.925rem; color: var(--text-dim); line-height: 1.6; }
+
+/* ── HONEST ── */
+.honest-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.honest-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2.5rem;
+}
+.honest-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+}
+.honest-card ul { list-style: none; }
+.honest-card li {
+  padding: 0.5rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text-dim);
+  font-size: 0.925rem;
+}
+.honest-card.can li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+.honest-card.cant li::before { content: '—'; position: absolute; left: 0; color: var(--text-dim); font-weight: 700; }
+
+/* ── FAQ ── */
+.faq { background: var(--bg-light); }
+.faq-list {
+  max-width: 780px;
+  margin: 3rem auto 0;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+  padding: 1.75rem 0;
+}
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-q {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  line-height: 1.5;
+}
+.faq-q::after {
+  content: '+';
+  font-size: 1.5rem;
+  color: var(--text-dim);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+  font-weight: 300;
+}
+.faq-item.open .faq-q::after { content: '−'; }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner {
+  padding-top: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ── CTA ── */
+.cta-section {
+  text-align: center;
+  padding: 8rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--blue-dim) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-content { position: relative; z-index: 1; }
+.cta-section h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+}
+.cta-section p {
+  font-size: 1.15rem;
+  color: var(--text-dim);
+  margin-bottom: 2.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-contact {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta-contact a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.cta-contact a:hover { color: var(--text-bright); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-brand {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--text); }
+
+/* ── ANIMATIONS ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .problem-grid,
+  .offerings-grid,
+  .honest-grid,
+  .infra-content {
+    grid-template-columns: 1fr;
   }
+  .security-grid,
+  .steps-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .comp-cell { padding: 0.85rem 1rem; font-size: 0.825rem; }
+}
 
-  /* ── Nav ── */
-  nav{position:fixed;top:0;left:0;right:0;background:#0d1117ee;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #21262d;z-index:100;padding:14px 0}
-  nav .container{display:flex;justify-content:space-between;align-items:center}
-  nav .logo{font-weight:700;font-size:1.05rem;color:#fff;text-decoration:none;letter-spacing:-.01em}
-  nav .logo span{color:#58a6ff}
-  nav .nav-link{color:#8b949e;text-decoration:none;font-size:.88rem;font-weight:500;transition:color .2s;margin-left:24px}
-  nav .nav-link:hover{color:#58a6ff}
-
-  /* ── Guarantee banner ── */
-  .guarantee{background:#58a6ff0a;border:1px solid #58a6ff22;border-radius:10px;padding:20px 24px;margin-top:28px;text-align:center;font-size:1rem;color:#c9d1d9}
-  .guarantee strong{color:#58a6ff}
+@media (max-width: 680px) {
+  section { padding: 5rem 1.25rem; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 15, 0.97);
+    backdrop-filter: blur(20px);
+    padding: 1.5rem 2rem;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-menu-btn { display: block; }
+  .hero h1 { font-size: 2.5rem; }
+  .footer-inner { flex-direction: column; gap: 1rem; }
+  .cta-contact { flex-direction: column; gap: 1rem; }
+}
 </style>
 </head>
 <body>
 
-<!-- Nav -->
+<!-- NAV -->
 <nav>
-  <div class="container">
-    <a href="#" class="logo">Camou <span>Labs</span></a>
-    <div>
-      <a href="#problem" class="nav-link">Problem</a>
-      <a href="#solution" class="nav-link">Solution</a>
-      <a href="#industries" class="nav-link">Industries</a>
-      <a href="#pricing" class="nav-link">Pricing</a>
-      <a href="#contact" class="nav-link">Contact</a>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Jannik <span>AI</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#problem">Why Us</a>
+      <a href="#individuals">Personal</a>
+      <a href="#business">Business</a>
+      <a href="#infra">Infrastructure</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact" class="nav-cta">Get Started</a>
     </div>
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero">
-  <div class="container">
-    <div class="badge">Built for small business. Nothing else.</div>
-    <h1>AI That Actually Works<br>for Small Business</h1>
-    <p class="subtitle">Not a chatbot. Not another app to learn. A real AI assistant that handles <strong class="white">70–80% of your admin work</strong> through your existing phone and email — so you can run your business instead of drowning in it.</p>
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content fade-up">
+    <h1>Your AI. Your Rules.<br>Your <span class="accent">Actions.</span></h1>
+    <p>A private AI assistant that doesn't just answer questions — it gets things done. Proactive. Secure. Customized to you.</p>
+    <div class="hero-buttons">
+      <a href="#contact" class="btn btn-primary">Book a Free Consultation</a>
+      <a href="#problem" class="btn btn-outline">See How It Works</a>
+    </div>
+    <div class="hero-proof">
+      Built in <span>New York City</span> · Private by default · Runs <span>24/7</span>
+    </div>
   </div>
 </section>
 
-<!-- Problem -->
-<section id="problem">
+<!-- PROBLEM -->
+<section class="problem" id="problem">
   <div class="container">
-    <h3>The Problem</h3>
-    <h2>You didn't start a business to answer texts at midnight.</h2>
-    <ul class="problem-list">
-      <li>
-        <span class="emoji">📱</span>
-        <div><strong class="white">You're buried in admin.</strong> Tenants texting at 2am. Customers waiting on callbacks. Scheduling chaos. Every missed message is lost money and trust.</div>
-      </li>
-      <li>
-        <span class="emoji">💸</span>
-        <div><strong class="white">You can't afford a full-time receptionist.</strong> A decent office admin in NYC costs $4,000–5,000/month. For a 50-unit property manager or a 3-bay auto shop, that's a brutal expense.</div>
-      </li>
-      <li>
-        <span class="emoji">😤</span>
-        <div><strong class="white">Existing software makes your life worse, not better.</strong> Every CRM, every app, every "solution" wants you to learn a new dashboard, manage another login, and migrate your workflow. You don't want that. You want someone to just handle it.</div>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- Solution -->
-<section id="solution">
-  <div class="container">
-    <h3>The Solution</h3>
-    <h2>An AI assistant that works through the tools you already use.</h2>
-    <p>No new apps. No dashboards. No learning curve. Your AI assistant reads your email, manages your calendar, and texts your clients — through your existing phone number and email address. It works 24/7. It never calls in sick. It never forgets.</p>
-    <div class="card-grid">
-      <div class="card">
-        <span class="icon">💬</span>
-        <h4>Texts & Email</h4>
-        <p>Responds to clients, tenants, and customers through SMS and email using your existing number and address. They'll never know it's AI.</p>
+    <div class="fade-up">
+      <div class="section-label">The Problem</div>
+      <h2 class="section-title">Everyone has ChatGPT.<br>Nobody has an AI that actually does things.</h2>
+      <p class="section-subtitle">Current AI is reactive. You ask, it answers. Then you still have to do the work yourself. We built something different.</p>
+    </div>
+    <div class="problem-grid fade-up">
+      <div class="problem-card theirs">
+        <div class="icon">💬</div>
+        <h3>What You Have Now</h3>
+        <ul>
+          <li>You ask a question, you get an answer</li>
+          <li>Your data trains someone else's model</li>
+          <li>Same generic experience for everyone</li>
+          <li>Only works when you're sitting there typing</li>
+          <li>Can't send an email, order food, or text anyone</li>
+        </ul>
       </div>
-      <div class="card">
-        <span class="icon">📅</span>
-        <h4>Calendar & Scheduling</h4>
-        <p>Books appointments, sends reminders, reschedules — all synced to your Google Calendar. No double-bookings.</p>
-      </div>
-      <div class="card">
-        <span class="icon">📋</span>
-        <h4>Tracking & Follow-ups</h4>
-        <p>Logs every request, follows up automatically, and sends you a clean daily summary of what happened while you slept.</p>
+      <div class="problem-card ours">
+        <div class="icon">⚡</div>
+        <h3>What We Built</h3>
+        <ul>
+          <li>Acts on your behalf — emails, orders, messages</li>
+          <li>Your data stays on your infrastructure</li>
+          <li>Customized to your life, your contacts, your preferences</li>
+          <li>Runs 24/7 — proactive, scheduled, always on</li>
+          <li>Dispatches real humans when physical action is needed</li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- How It Works -->
-<section id="how">
+<!-- COMPARISON -->
+<section id="compare">
   <div class="container">
-    <h3>How It Works</h3>
-    <h2>Simple setup. We manage everything.</h2>
-    <div class="steps">
+    <div class="fade-up">
+      <div class="section-label">The Difference</div>
+      <h2 class="section-title">ChatGPT gives you answers.<br>We give you an assistant that takes action.</h2>
+    </div>
+    <div class="comparison-table fade-up">
+      <div class="comp-row header">
+        <div class="comp-cell"></div>
+        <div class="comp-cell">ChatGPT / Claude</div>
+        <div class="comp-cell">Jannik AI</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Core function</div>
+        <div class="comp-cell">Answers questions</div>
+        <div class="comp-cell green-bg">Takes real-world action</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Your data</div>
+        <div class="comp-cell">Trains their model</div>
+        <div class="comp-cell green-bg">Stays yours. Period.</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Personalization</div>
+        <div class="comp-cell">Same for everyone</div>
+        <div class="comp-cell green-bg">Customized to you</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Availability</div>
+        <div class="comp-cell">Only when you ask</div>
+        <div class="comp-cell green-bg">24/7, proactive</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Real actions</div>
+        <div class="comp-cell">Can't order food or text your plumber</div>
+        <div class="comp-cell green-bg">Does it</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-cell">Scheduled tasks</div>
+        <div class="comp-cell">None</div>
+        <div class="comp-cell green-bg">Runs cron jobs for you</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR INDIVIDUALS -->
+<section id="individuals" style="background: var(--bg-light);">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">For Individuals</div>
+      <h2 class="section-title">Your AI Chief of Staff</h2>
+      <p class="section-subtitle">Like having a personal assistant who never sleeps, never forgets, and costs less than one hour of your lawyer's time.</p>
+    </div>
+    <div class="offerings-grid fade-up">
+      <div class="offering-card">
+        <div class="icon">📋</div>
+        <h3>It Handles Your Day</h3>
+        <p class="desc">Tell it your preferences once. It remembers your contacts, your vendors, your schedule, your routines — and acts on them.</p>
+        <ul class="example-list">
+          <li>"Order my usual from Seamless every Tuesday at 7pm"</li>
+          <li>"Every morning at 8am, text me my schedule and weather"</li>
+          <li>"If my flight gets delayed, rebook the Uber and text my wife"</li>
+          <li>"Check my email every hour, flag anything from my lawyer"</li>
+        </ul>
+      </div>
+      <div class="offering-card">
+        <div class="icon">🔐</div>
+        <h3>Private by Default</h3>
+        <p class="desc">VPN-protected. Self-hosted option available. Your conversations, your data, your business — none of it trains anyone else's model. Ever.</p>
+        <div class="pricing-block">
+          <h4>Pricing</h4>
+          <div class="price-line">
+            <span class="label">Personal</span>
+            <span class="amount">$500/mo</span>
+          </div>
+          <div class="price-line">
+            <span class="label">Business</span>
+            <span class="amount">$750–1,000/mo</span>
+          </div>
+          <div class="price-line">
+            <span class="label">Enterprise</span>
+            <span class="amount">Custom</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR BUSINESSES -->
+<section id="business">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">For Businesses</div>
+      <h2 class="section-title">The AI That Works for Your Team</h2>
+      <p class="section-subtitle">Automate the operational work that eats your day. Client follow-ups, scheduling, vendor management, tenant communication — handled.</p>
+    </div>
+    <div class="offerings-grid fade-up">
+      <div class="offering-card">
+        <div class="icon">🏢</div>
+        <h3>Property Management</h3>
+        <p class="desc">Rent reminders, maintenance dispatch, tenant communication, payment tracking. Your AI handles the repetitive so you handle the important.</p>
+        <ul class="example-list">
+          <li>"When rent is due, remind all tenants and track who paid"</li>
+          <li>"If a maintenance request comes in, dispatch the right vendor"</li>
+          <li>"Send monthly financial summaries to each property owner"</li>
+        </ul>
+      </div>
+      <div class="offering-card">
+        <div class="icon">⚖️</div>
+        <h3>Professional Services</h3>
+        <p class="desc">Client intake, follow-ups, scheduling, document prep. For law firms, medical practices, financial advisors — anyone who bills by the hour.</p>
+        <ul class="example-list">
+          <li>"Follow up with every client who hasn't responded in 3 days"</li>
+          <li>"Schedule all new consultations and send prep materials"</li>
+          <li>"Flag any email from opposing counsel immediately"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUCTURE -->
+<section class="infra" id="infra">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Private AI Infrastructure</div>
+      <h2 class="section-title">Build Your Own AI.<br>On Your Hardware. In Your Building.</h2>
+      <p class="section-subtitle">For companies that can't — or won't — send their data to the cloud. We build private AI data centers on Apple Silicon.</p>
+    </div>
+    <div class="infra-content fade-up">
+      <div class="infra-text">
+        <p class="desc">One Mac Studio runs a 70B parameter model. No cluster needed for most use cases. Fully air-gapped or VPN-secured — your data never leaves your building. Open-source models mean no vendor lock-in and no per-token fees.</p>
+        <ul class="stack-list">
+          <li><span class="icon">◆</span><span class="text"><strong>Hardware spec & procurement</strong> — we tell you exactly what to buy</span></li>
+          <li><span class="icon">◆</span><span class="text"><strong>Model selection & optimization</strong> — matched to your use case</span></li>
+          <li><span class="icon">◆</span><span class="text"><strong>Deployment & configuration</strong> — up and running in days</span></li>
+          <li><span class="icon">◆</span><span class="text"><strong>Ongoing management</strong> — monitoring, updates, quarterly model refreshes</span></li>
+          <li><span class="icon">◆</span><span class="text"><strong>VPN/security architecture</strong> — Tailscale or WireGuard, your choice</span></li>
+          <li><span class="icon">◆</span><span class="text"><strong>Ansible automation</strong> — fleet management at scale</span></li>
+        </ul>
+        <div class="pricing-block">
+          <h4>Pricing</h4>
+          <div class="price-line">
+            <span class="label">Setup</span>
+            <span class="amount">$5,000–15,000</span>
+          </div>
+          <div class="price-line">
+            <span class="label">Monthly management</span>
+            <span class="amount">$1,500–3,000/mo</span>
+          </div>
+          <div class="price-line">
+            <span class="label">Hardware</span>
+            <span class="amount">Client purchases</span>
+          </div>
+        </div>
+      </div>
+      <div class="infra-stack">
+        <h3>The Stack</h3>
+        <div class="stack-diagram">
+          <div class="stack-layer l1">VPN Layer — Tailscale / WireGuard</div>
+          <div class="stack-layer l2">Orchestration — OpenClaw</div>
+          <div class="stack-layer l3">Models — Llama 3.1 70B / 405B</div>
+          <div class="stack-layer l4">Runtime — Ollama</div>
+          <div class="stack-layer l5">Hardware — Mac Studio M3 Ultra</div>
+        </div>
+        <p class="infra-quote">"No per-token fees. No vendor lock-in. Your AI, your hardware, your data."</p>
+        <div style="margin-top: 1.5rem;">
+          <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.7;">
+            Perfect for law firms, healthcare (HIPAA), financial services, and any organization where data can't leave the building. SOC2/HIPAA compliance path included.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section id="security">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">Security & Privacy</div>
+      <h2 class="section-title">We take this seriously.<br>Because your data is your data.</h2>
+    </div>
+    <div class="security-grid fade-up">
+      <div class="security-card">
+        <div class="icon">🔒</div>
+        <h3>End-to-End Encryption</h3>
+        <p>All communication travels through VPN tunnels. Your conversations never touch the open internet.</p>
+      </div>
+      <div class="security-card">
+        <div class="icon">🚫</div>
+        <h3>No Data Training</h3>
+        <p>Your conversations are yours. We don't use your data to train models, improve products, or anything else.</p>
+      </div>
+      <div class="security-card">
+        <div class="icon">📖</div>
+        <h3>Open-Source Models</h3>
+        <p>Auditable. No black boxes. You can inspect exactly what's running and how it processes your information.</p>
+      </div>
+      <div class="security-card">
+        <div class="icon">🏠</div>
+        <h3>Self-Hosted Option</h3>
+        <p>Maximum control. Run everything on your own hardware. We set it up, you own it entirely.</p>
+      </div>
+      <div class="security-card">
+        <div class="icon">✅</div>
+        <h3>Compliance Ready</h3>
+        <p>SOC2 and HIPAA compliance paths available. Built for industries where data governance isn't optional.</p>
+      </div>
+      <div class="security-card">
+        <div class="icon">🛡️</div>
+        <h3>VPN Architecture</h3>
+        <p>Tailscale or WireGuard — modern, zero-trust networking. No exposed ports, no attack surface.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="steps" id="steps">
+  <div class="container">
+    <div class="fade-up">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Three steps. That's it.</h2>
+    </div>
+    <div class="steps-grid fade-up">
       <div class="step">
         <div class="step-num">1</div>
-        <div class="step-body">
-          <h4>We install a small computer in your office — or host it in the cloud.</h4>
-          <p>A Mac mini (smaller than a book) sits in your office closet, or we run it on a secure cloud server. Your choice. Either way, you never touch it.</p>
-        </div>
+        <h3>Tell Us What You Need</h3>
+        <p>30-minute call. We learn your workflow, your pain points, what you wish you could delegate. No sales pitch — just listening.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-body">
-          <h4>We connect it to your phone number, email, and calendar.</h4>
-          <p>Your AI starts reading incoming messages, managing your calendar, and texting your clients — all through the number and email they already have.</p>
-        </div>
+        <h3>We Build Your AI</h3>
+        <p>1–2 weeks. We configure your assistant with your contacts, preferences, integrations, and scheduled tasks. Tested before handoff.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <div class="step-body">
-          <h4>We train it on your business.</h4>
-          <p>Your rates, your hours, your policies, your vendors, your FAQ. It knows how you run things because we program it to run things your way.</p>
-        </div>
+        <h3>Start Delegating</h3>
+        <p>Text it, email it, or message it. Your AI handles the rest. We monitor and adjust as you settle in.</p>
       </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-body">
-          <h4>You go run your business.</h4>
-          <p>We manage the system remotely via secure VPN. Updates, fixes, new features — all handled. You just get a daily summary and focus on what matters.</p>
-        </div>
-      </div>
-    </div>
-    <p style="margin-top:12px;font-size:.95rem;color:#484f58">The tech stack, for the curious:</p>
-    <div class="stack-pills">
-      <span class="pill">OpenClaw AI</span>
-      <span class="pill">Twilio SMS</span>
-      <span class="pill">Google Calendar</span>
-      <span class="pill">Gmail API</span>
-      <span class="pill">Airtable</span>
-      <span class="pill">WireGuard VPN</span>
     </div>
   </div>
 </section>
 
-<!-- Industries -->
-<section id="industries">
+<!-- THE HONEST TRUTH -->
+<section id="honest">
   <div class="container">
-    <h3>Who This Is For</h3>
-    <h2>Built for businesses that run on relationships, not spreadsheets.</h2>
-    <div class="card-grid">
-
-      <div class="card">
-        <span class="icon">🏢</span>
-        <h4>Property Managers <span style="font-weight:400;color:#8b949e;font-size:.85rem">30–100 units</span></h4>
+    <div class="fade-up">
+      <div class="section-label">The Honest Truth</div>
+      <h2 class="section-title">What AI can and can't do.</h2>
+      <p class="section-subtitle">We'd rather tell you upfront than over-promise. AI is powerful — but it's not magic.</p>
+    </div>
+    <div class="honest-grid fade-up">
+      <div class="honest-card can">
+        <h3>What It Handles Well</h3>
         <ul>
-          <li>24/7 tenant text intake &amp; maintenance triage</li>
-          <li>Rent reminders &amp; late payment escalation</li>
-          <li>Vendor dispatch and follow-up</li>
-          <li>Showing scheduling for vacancies</li>
-          <li>Move-in / move-out coordination</li>
-          <li>Morning briefing: today's issues, rent status, open work orders</li>
-          <li>Lease expiration alerts &amp; renewal nudges</li>
+          <li>70–80% of routine, repetitive tasks</li>
+          <li>Scheduling, reminders, follow-ups</li>
+          <li>Ordering, booking, sending messages</li>
+          <li>Monitoring — email, calendar, notifications</li>
+          <li>Data lookups and simple research</li>
+          <li>Dispatching humans for physical tasks</li>
         </ul>
       </div>
-
-      <div class="card">
-        <span class="icon">🔧</span>
-        <h4>Auto Repair Shops</h4>
+      <div class="honest-card cant">
+        <h3>What Still Needs You</h3>
         <ul>
-          <li>Service reminders (oil change due, inspection coming up)</li>
-          <li>Appointment booking &amp; confirmation</li>
-          <li>Estimate follow-ups — "Ready to approve the $800 brake job?"</li>
-          <li>Parts arrival notifications</li>
-          <li>Review requests after service</li>
-          <li>Invoice &amp; payment reminders</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <span class="icon">⚡</span>
-        <h4>Trades Contractors <span style="font-weight:400;color:#8b949e;font-size:.85rem">Plumbers · Electricians · HVAC</span></h4>
-        <ul>
-          <li>Quote follow-ups (most contractors lose 50% of leads by not following up)</li>
-          <li>Job scheduling &amp; "on my way" texts</li>
-          <li>Invoice generation &amp; payment reminders</li>
-          <li>Review requests after every job</li>
-          <li>Seasonal marketing — "Furnace tune-up before winter"</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <span class="icon">🐾</span>
-        <h4>Veterinary Clinics</h4>
-        <ul>
-          <li>Vaccination &amp; checkup reminders</li>
-          <li>Appointment scheduling &amp; confirmations</li>
-          <li>Post-surgery follow-ups</li>
-          <li>Prescription refill alerts</li>
-          <li>New client intake via text</li>
-          <li>After-hours triage — "Is this an emergency?"</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <span class="icon">🛡️</span>
-        <h4>Insurance Agencies</h4>
-        <ul>
-          <li>Policy renewal reminders (this alone is worth $500/mo)</li>
-          <li>Claims follow-up coordination</li>
-          <li>New lead nurturing sequences</li>
-          <li>Document collection from clients</li>
-          <li>Annual review scheduling</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <span class="icon">👷</span>
-        <h4>Staffing Agencies</h4>
-        <ul>
-          <li>Shift reminders to workers</li>
-          <li>Timesheet collection &amp; nudges</li>
-          <li>Candidate follow-ups</li>
-          <li>Client check-ins</li>
-          <li>No-show alerts &amp; replacement coordination</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- How to Explain It -->
-<section id="explain">
-  <div class="container">
-    <h3>How to Explain It to a Normal Person</h3>
-    <h2>Skip the jargon. Here's what it actually does.</h2>
-
-    <div class="dialogue">
-      <div class="label">🏢 For a Property Manager</div>
-      <blockquote>"You know how tenants text you at 2am about a leaky faucet? Imagine you had someone who answered every single one of those texts, logged the issue, texted your plumber, and sent you a summary in the morning. That's what this does. Except it never sleeps, it never forgets, and it costs less than one day of a secretary's pay — per month."</blockquote>
-    </div>
-
-    <div class="dialogue">
-      <div class="label">🔧 For an Auto Shop Owner</div>
-      <blockquote>"You know how you lose customers because you forgot to call them back about their estimate? This follows up for you. Every single time. It texts them, 'Hey, ready to go ahead with that brake job?' And when they say yes, it books the appointment on your calendar. You never have to think about it."</blockquote>
-    </div>
-
-    <div class="dialogue">
-      <div class="label">⚡ For a Contractor</div>
-      <blockquote>"You go out, give someone a quote for a $3,000 job, then get busy and forget to follow up. Two weeks later they hired someone else. This makes sure that never happens. It follows up the next day, then three days later, then a week later. Politely. Automatically. You just do the work."</blockquote>
-    </div>
-
-    <div class="dialogue">
-      <div class="label">🐾 For a Vet Clinic</div>
-      <blockquote>"Your front desk spends half the day calling people about vaccine reminders and appointment confirmations. This handles all of that by text — which is how people prefer to communicate anyway. Your staff can focus on actual patient care instead of playing phone tag."</blockquote>
-    </div>
-
-    <div class="dialogue">
-      <div class="label">🛡️ For an Insurance Agent</div>
-      <blockquote>"How many policy renewals slip through the cracks every month? Each one is hundreds in lost commission. This sends renewal reminders 60, 30, and 7 days out. It collects updated info from your clients. It books the review meeting. You just show up and close."</blockquote>
-    </div>
-  </div>
-</section>
-
-<!-- Honesty -->
-<section id="honesty">
-  <div class="container">
-    <h3>What It Honestly Can't Do</h3>
-    <h2>We'd rather under-promise and over-deliver.</h2>
-    <p>We're not going to pretend AI can do everything. Here's where it stops — and where you still need a human.</p>
-    <ul class="honesty-list">
-      <li>
-        <span class="icon">✗</span>
-        <div><strong class="white">No human-sounding phone calls.</strong> AI-generated voice calls aren't there yet. We handle text and email — the channels where AI actually works well today.</div>
-      </li>
-      <li>
-        <span class="icon">✗</span>
-        <div><strong class="white">No complex judgment calls.</strong> A tenant threatening legal action? A customer disputing a major bill? That's you. AI flags it and escalates — it doesn't play lawyer or negotiator.</div>
-      </li>
-      <li>
-        <span class="icon">✗</span>
-        <div><strong class="white">No physical tasks.</strong> It can text your plumber to go fix the leak. It can't fix the leak.</div>
-      </li>
-      <li>
-        <span class="icon">✗</span>
-        <div><strong class="white">It's not 100% — it's 70–80%.</strong> It handles the repetitive, predictable, high-volume work. The other 20% — the stuff that actually requires human judgment — that's still yours. And honestly, that's the part you're good at.</div>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- Pricing -->
-<section id="pricing">
-  <div class="container">
-    <h3>Pricing</h3>
-    <h2>Simple. No contracts. Cancel anytime.</h2>
-    <div class="pricing-grid">
-      <div class="price-card featured">
-        <div class="popular-badge">Most Popular</div>
-        <div class="tier">Cloud Hosted</div>
-        <div class="price">$500<span>/month</span></div>
-        <div class="desc">We host it. We manage it. You use it.</div>
-        <ul>
-          <li>Fully managed AI assistant</li>
-          <li>SMS, email &amp; calendar integration</li>
-          <li>Custom trained on your business</li>
-          <li>Daily summary reports</li>
-          <li>Unlimited messages</li>
-          <li>Remote monitoring &amp; updates</li>
-        </ul>
-      </div>
-      <div class="price-card">
-        <div class="tier">On-Premise</div>
-        <div class="price">$1,500<span>/month</span></div>
-        <div class="desc">Dedicated hardware in your office. Full privacy.</div>
-        <ul>
-          <li>Everything in Cloud, plus:</li>
-          <li>Mac mini installed on-site</li>
-          <li>Data never leaves your office</li>
-          <li>Secure VPN for remote management</li>
-          <li>Hardware included &amp; maintained</li>
-          <li>For privacy-sensitive industries</li>
-        </ul>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:28px">
-      <p style="color:#8b949e;font-size:.95rem"><strong class="white">One-time setup fee:</strong> $1,000–$2,000 depending on complexity</p>
-      <p style="color:#8b949e;font-size:.95rem">Month-to-month. No annual contracts. No cancellation fees.</p>
-    </div>
-    <div class="guarantee">
-      <strong>Our guarantee:</strong> If it doesn't save you 10+ hours a week in the first month, cancel. No questions asked.
-    </div>
-  </div>
-</section>
-
-<!-- How We're Different -->
-<section id="different">
-  <div class="container">
-    <h3>How We're Different</h3>
-    <h2>We're not another software company.</h2>
-    <div class="diff-grid">
-      <div class="diff-col">
-        <h4>Typical AI / SaaS Company</h4>
-        <ul>
-          <li>Here's a login — figure it out</li>
-          <li>Watch our YouTube tutorials</li>
-          <li>Submit a support ticket</li>
-          <li>Migrate all your data to our platform</li>
-          <li>Learn our dashboard</li>
-          <li>Based in San Francisco</li>
-        </ul>
-      </div>
-      <div class="diff-col">
-        <h4>Camou Labs</h4>
-        <ul>
-          <li>We set it up for you</li>
-          <li>We manage it for you</li>
-          <li>We're a phone call away</li>
-          <li>Works with your existing tools</li>
-          <li>You never touch a dashboard</li>
-          <li>Local NYC company</li>
+          <li>Complex judgment calls and negotiation</li>
+          <li>Creative strategy and high-stakes decisions</li>
+          <li>Reliable phone calls (not there yet)</li>
+          <li>Anything requiring physical presence</li>
+          <li>Nuanced emotional conversations</li>
+          <li>Tasks that change every time</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- The Math -->
-<section id="math">
+<!-- FAQ -->
+<section class="faq" id="faq">
   <div class="container">
-    <h3>The Math</h3>
-    <h2>This isn't theoretical. It's arithmetic.</h2>
-    <div class="math-box">
-      <div class="math-row">
-        <span class="label">Full-time receptionist / office admin (NYC)</span>
-        <span class="value">$4,000–$5,000/mo</span>
+    <div class="fade-up">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common questions.</h2>
+    </div>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <button class="faq-q">"Is this just ChatGPT with extra steps?"</button>
+        <div class="faq-a"><div class="faq-a-inner">No. ChatGPT can't order your lunch, text your plumber, or check your email every hour and flag things from your lawyer. It answers questions. We take action. Different product entirely.</div></div>
       </div>
-      <div class="math-row">
-        <span class="label">Camou Labs AI assistant</span>
-        <span class="value">$500/mo</span>
+      <div class="faq-item">
+        <button class="faq-q">"How is my data protected?"</button>
+        <div class="faq-a"><div class="faq-a-inner">All traffic runs through encrypted VPN tunnels (Tailscale or WireGuard). Your data never trains any model. For maximum control, we offer fully self-hosted deployments where everything runs on your own hardware in your own building.</div></div>
       </div>
-      <div class="math-row savings">
-        <span class="label"><strong class="white">Monthly savings</strong></span>
-        <span class="value">$3,500–$4,500</span>
+      <div class="faq-item">
+        <button class="faq-q">"What if I want to cancel?"</button>
+        <div class="faq-a"><div class="faq-a-inner">Month to month. No contracts, no cancellation fees. We keep clients by being useful, not by locking them in.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">"Can it make phone calls?"</button>
+        <div class="faq-a"><div class="faq-a-inner">Not yet reliably. AI voice calls are getting better fast, but we won't offer something that isn't dependable. Right now it handles text, email, messaging apps, and can dispatch a human when a call is needed.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">"What hardware do I need?"</button>
+        <div class="faq-a"><div class="faq-a-inner">For the personal assistant — nothing. We handle everything. For private infrastructure, you'll need Apple Silicon hardware (Mac Studio or similar). We spec it, you buy it, we deploy and manage it.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">"How is this different from hiring a virtual assistant?"</button>
+        <div class="faq-a"><div class="faq-a-inner">A human VA works 8 hours, takes vacation, and handles one thing at a time. Your AI runs 24/7, handles concurrent tasks, remembers everything, and costs a fraction of what you'd pay a person. For tasks that need a human, it dispatches one.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">"Who is this for?"</button>
+        <div class="faq-a"><div class="faq-a-inner">Busy professionals who value their time and their privacy. Lawyers, doctors, finance professionals, property managers, business owners — especially in NYC, but we work with clients anywhere.</div></div>
       </div>
     </div>
-    <p style="margin-top:24px;text-align:center;color:#8b949e;font-size:1rem">Even if it only replaces <strong class="white">half</strong> of what a secretary does — that's $2,000/month in value for $500. The math works at any fraction.</p>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
-  <div class="container">
-    <h3>Next Steps</h3>
-    <h2>Let us show you — with your data, not a generic demo.</h2>
-    <p>Free 30-minute walkthrough. We'll use your actual business — your tenants, your customers, your schedule — and show you exactly what the AI would handle.</p>
-    <a href="mailto:hello@camoulabs.com" class="btn">Book a Free Demo →</a>
-    <div class="contact-line">
-      📧 hello@camoulabs.com &nbsp;·&nbsp; 📱 (917) 000-0000 &nbsp;·&nbsp; 📍 New York City
+  <div class="cta-content fade-up">
+    <h2>Ready to stop doing busywork?</h2>
+    <p>Free 30-minute consultation. No pitch deck. We'll just talk about what's eating your time and whether we can help.</p>
+    <a href="mailto:hello@jannikai.com" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Let's Talk</a>
+    <div class="cta-contact">
+      <a href="mailto:hello@jannikai.com">hello@jannikai.com</a>
+      <a href="tel:+12125551234">Schedule a Call</a>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- FOOTER -->
 <footer>
-  <div class="container">
-    <span class="brand">Camou Labs</span> — New York City<br>
-    <span style="color:#30363d;font-size:.8rem">AI infrastructure for small business. Built with care, not hype.</span>
+  <div class="footer-inner">
+    <div class="footer-brand">Jannik AI — New York City</div>
+    <div class="footer-links">
+      <a href="#individuals">Personal</a>
+      <a href="#business">Business</a>
+      <a href="#infra">Infrastructure</a>
+      <a href="#security">Security</a>
+      <a href="#contact">Contact</a>
+    </div>
   </div>
 </footer>
+
+<script>
+// Mobile menu toggle
+document.getElementById('menuBtn').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
